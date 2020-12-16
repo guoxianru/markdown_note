@@ -58,7 +58,13 @@ red.randomkey()
 
 ```
 
-### 3、String:{name: value}
+### 3、String
+
+- string是redis最基本的类型，你可以理解成与Memcached一模一样的类型，一个key对应一个value。
+
+- string类型是二进制安全的。意思是redis的string可以包含任何数据。比如jpg图片或者序列化的对象 。
+
+- string类型是Redis最基本的数据类型，一个键最大能存储512MB。
 
 ```python
 # 设置键值
@@ -79,7 +85,11 @@ red.strlen("key")
 
 ```
 
-### 4、Hash:name: {key: value}
+### 4、Hash
+
+- Redis hash 是一个键值对集合。
+
+- Redis hash是一个string类型的field和value的映射表，hash特别适合用于存储对象。
 
 ```python
 # 设置单个属性(不存在创建，已存在修改)
@@ -107,7 +117,9 @@ red.hincrby("name", "key", amount=10)
 
 ```
 
-### 5、List:name: [value1, value2]
+### 5、List
+
+- Redis 列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素导列表的头部（左边）或者尾部（右边）。
 
 ```python
 # 在左侧插入元素
@@ -137,7 +149,11 @@ red.ltrim("name", 0, 2)
 
 ```
 
-### 6、Set:name: (value1, value2)
+### 6、Set
+
+- Redis的Set是string类型的无序集合。
+
+- 集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是O(1)。
 
 ```python
 # 给name对应的集合中添加元素
@@ -165,7 +181,13 @@ red.srem("name", "value")
 
 ```
 
-### 7、Zset:name: (value1_num, value2_num)
+### 7、Zset
+
+- Redis zset 和 set 一样也是string类型元素的集合,且不允许重复的成员。
+
+- 不同的是每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。
+
+- zset的成员是唯一的,但分数(score)却可以重复。
 
 ```python
 # 在name对应的有序集合中添加元素
