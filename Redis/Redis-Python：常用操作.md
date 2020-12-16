@@ -2,7 +2,7 @@
 
 ## 导读
 
-> 简单介绍下redis，一个高性能key-value的存储系统，支持存储的类型有string、list、set、zset和hash。在处理大规模数据读写的场景下运用比较多。
+> 简单介绍下redis，一个高性能key-value的存储系统，支持存储的类型有String、Hash、List、Set、Zset。在处理大规模数据读写的场景下运用比较多。
 
 ### 1、连接Redis数据库
 
@@ -11,7 +11,8 @@
 ```python
 import redis
 
-red = redis.Redis(host="localhost", port=6379, db=1)
+red = redis.Redis(host="127.0.0.1", port=6379, password="password", db=1)
+# red = redis.StrictRedis(host="127.0.0.1", port=6379, password="password", db=1)
 
 ```
 
@@ -26,237 +27,167 @@ redis模块采用ConnectionPool来管理对redis server的所有连接。
 ```python
 import redis
 
-pool = redis.ConnectionPool(host="localhost", port=6379, db=1)
+pool = redis.ConnectionPool(host="127.0.0.1", port=6379, password="password", db=1)
 red = redis.Redis(connection_pool=pool)
-red.set("key1", "value1")
-red.set("key2", "value2")
+# red = redis.StrictRedis(connection_pool=pool)
 
 ```
 
-### 2、String类型存取
+### 2、常用操作
 
 ```python
-# 在Redis中设置值，默认不存在则创建，存在则修改
-set(name, value, ex=None, px=None, nx=False, xx=False)
-# ex，过期时间（秒）
-# px，过期时间（毫秒）
-# nx，如果设置为True，则只有key不存在时，当前set操作才执行,同#setnx(key, value)
-# xx，如果设置为True，则只有key存在时，当前set操作才执行
+# 清空当前db中的数据，默认是同步，异步asynchronous=True，会新起一个线程进行清空操作，不阻塞主线程。
+red.flushdb(asynchronous=False)
+# 清空所有db中的数据，默认是同步。
+red.flushall(asynchronous=False)
+# 根据name删除redis中的任意数据类型
+red.delete("name")
+# 检查name是否存在
+red.exists("name")
+# 获取所有name
+red.keys(pattern="*")
+red.keys(pattern="a*")
+# 为某个name的设置过期时间
+red.expire("name", 3)
+# 重命名
+red.rename("name1", "name2")
+# 将name移动到指定的db
+red.move('name', db=1)
+# 随机获取一个name
+red.randomkey()
 
-# 设置过期时间（秒）
-setex(name, value, time)
+```
 
-# 设置过期时间（豪秒）
-psetex(name, time_ms, value)
+### 3、String:{name: value}
 
-# 批量设置值
-mset(*args, **kwargs)
+```python
+# 设置键值
+red.set("key", "value")
+# 设置键值及过期时间，以秒为单位
+red.setex("key", 3, "value")
+# 设置多个键值
 red.mget({"key1": "value1", "key2": "value2"})
-
-# 获取某个key的值
-get(name)
-red.get("key1")
-
-# 批量获取
-mget(keys, *args)
-red.mget("key1", "key1")
-
-# 返回key对应值的字节长度（一个汉字3个字节）
-strlen(name)
+# 追加指定键的值
+red.set("key", "value")  # 输出:'value'
+red.append("key", "one")  # 输出:'valueone'
+# 获取键值
+red.get("key")
+# 获取多个键值
+red.mget("key1", "key2")
+# 获取key对应值的字节长度(一个汉字3个字节)
 red.strlen("key")
 
-# 在name对应的值后面追加内容
-append(name, value)
-red.set("key", "value")
-print(r.get("key"))  # 输出:'value'
-r.append("key", "one")
-print(r.get("key"))  # 输出:'valueone'
-
 ```
 
-### 3、Hash类型：一个name对应一个dic字典来存储
+### 4、Hash:name: {key: value}
 
 ```python
-# name对应的hash中设置一个键值对（不存在，则创建，否则，修改）
-hset(name, key, value)
+# 设置单个属性(不存在创建，已存在修改)
 red.hset("name", "key", "value")
-
-# 在name对应的hash中根据key获取value
-hget(name, key)
-red.hset("name", "key", "value")
-print(red.hget("name", "key"))  # 输出:'value'
-
-# 获取name所有键值对
-hgetall(name)
-red.hgetall("name")
-
-# 在name对应的hash中批量设置键值对,mapping:字典
-hmset(name, mapping)
-dic = {"key1": "aa", "key2": "bb"}
-red.hmset("name", dic)
-print(red.hget("name", "key2"))  # 输出:bb
-
-# 在name对应的hash中批量获取键所对应的值
-hmget(name, keys, *args)
-dic = {"key1": "aa", "key2": "bb"}
-red.hmget("name", dic)
-print(red.hmget("name", "key1", "key2"))  # 输出:['aa', 'bb']
-
-# 获取hash键值对的个数
-hlen(name)
-print(red.hlen("name"))  # 输出：2
-
-# 获取hash中所有key
-hkeys(name)
+# 设置多个属性
+red.hmset("name", {"key1": "aa", "key2": "bb"})
+# 获取指定键的所有属性
 red.hkeys("name")
-
-# 获取hash中所有value
-hvals(name)
+# 获取属性的值
+red.hget("name", "key")
+# 获取多个属性的值
+red.hmget("name", "key1", "key2")
+# 获取所有属性的值
 red.hvals("name")
-
-# 检查name对应的hash是否存在当前传入的key
-hexists(name, key)
-print(red.hexists("name", "key1"))  # 输出：Ture
-
-# 删除指定name对应的key所在的键值对，删除成功返回1，失败返回0
-hdel(name, *keys)
-print(red.hdel("name", "key1"))  # 输出：1
-
+# 删除指定键的指定属性
+red.hdel("name", "key1")
+# 获取指定键的所有属性
+red.hgetall("name")
+# 获取指定键的属性个数
+red.hlen("name")
+# 检查指定键是否存在当前传入的属性
+red.hexists("name", "key1")
 # 与hash中key对应的值相加，不存在则创建key=amount(amount为整数)
-hincrby(name, key, amount=1)
-print(red.hincrby("name", "key", amount=10))  # 返回：10
+red.hincrby("name", "key", amount=10)
 
 ```
 
-### 4、list类型：一个name对应一个列表存储
+### 5、List:name: [value1, value2]
 
 ```python
-# 元素从list的左边添加，可以添加多个
-lpush(name, *values)
+# 在左侧插入元素
 red.lpush("name", "元素1", "元素2")
-
-# 元素从list右边添加，可以添加多个
-rpush(name, *values)
-red.rpush("name", "元素1", "元素2")
-
 # 当name存在时，元素才能从list的左边加入
-lpushx(name, *values)
 red.lpushx("name", "元素1")
-
+# 在右侧插入元素
+red.rpush("name", "元素1", "元素2")
 # 当name存在时，元素才能从list的右边加入
-rpushx(name, *values)
 red.rpushx("name", "元素1")
-
+# 在name对应的列表的某一个值前或后插入一个元素(BEFORE/AFTER)
+red.linsert("name", "BEFORE", "列表内元素", "新插入元素")
 # name列表长度
-llen(name)
 red.llen("name")
-
-# 在name对应的列表的某一个值前或后插入一个新值
-linsert(name, where, refvalue, value)
-# 参数：
-# name: redis的name
-# where: BEFORE（前）或AFTER（后）
-# refvalue: 列表内的值
-# value: 要插入的数据
-
 # 对list中的某一个索引位置重新赋值
-lset(name, index, value)
 red.lset("name", 0, "abc")
-
 # 删除name对应的list中的指定值
-lrem(name, value, num=0)
-# 参数：
-# name:  redis的name
-# value: 要删除的值
-# num:   num=0 删除列表中所有的指定值；
-#        num=2 从前到后，删除2个；
-#        num=-2 从后向前，删除2个'''
-red.lrem("name", "元素1", num=0)
-
+red.lrem("name", 2, "元素1")
 # 移除列表的左侧第一个元素，返回值则是第一个元素
-lpop(name)
-print(red.lpop("name"))
-
+red.lpop("name")
 # 根据索引获取列表内元素
-lindex(name, index)
-print(red.lindex("name", 1))
-
+red.lindex("name", 1)
 # 分片获取元素
-lrange(name, start, end)
-print(red.lrange("name", 0, -1))
-
+red.lrange("name", 0, -1)
 # 移除列表内没有在该索引之内的值
-ltrim(name, start, end)
 red.ltrim("name", 0, 2)
 
 ```
 
-### 5、set类型：集合是不允许重复的列表
+### 6、Set:name: (value1, value2)
 
 ```python
 # 给name对应的集合中添加元素
-sadd(name, *values)
 red.sadd("name", "aa")
 red.sadd("name", "aa", "bb")
-
 # 获取name对应的集合中的元素个数
-scard(name)
 red.scard("name")
-
 # 获取name对应的集合的所有成员
-smembers(name)
 red.smembers("name")
-
+# 随机获得集合中的元素
+red.srandmember("name", 1)
 # 在第一个name对应的集合中且不在其他name对应的集合的元素集合
-sdiff(keys, *args)
 red.sadd("name", "aa", "bb")
 red.sadd("name1", "bb", "cc")
 red.sadd("name2", "bb", "cc", "dd")
-print(red.sdiff("name", "name1", "name2"))  # 输出:{aa}
-
+red.sdiff("name", "name1", "name2")  # 输出:aa
 # 检查value是否是name对应的集合内的元素
-sismember(name, value)
-
+red.sismember("name", "value")
 # 将某个元素从一个集合中移动到另外一个集合
-smove(src, dst, value)
-
+red.smove("name1", "name2", "value")
 # 从集合的右侧移除一个元素，并将其返回
-spop(name)
+red.spop("name")
+# 删除指定元素
+red.srem("name", "value")
 
 ```
 
-### 6、其他常用操作
+### 7、Zset:name: (value1_num, value2_num)
 
 ```python
-# 清空当前db中的数据,默认是同步。
-# 若开启异步asynchronous=True，会新起一个线程进行清空操作，不阻塞主线程。
-flushdb(asynchronous=False)
-
-# 清空所有db中的数据，默认是同步。异步同flushdb
-flushall(asynchronous=False)
-
-# 根据name删除redis中的任意数据类型
-delete(*names)
-
-# 检查redis的name是否存在
-exists(name)
-
-# 根据* ？等通配符匹配获取redis的name
-keys(pattern="*")
-
-# 为某个name的设置过期时间
-expire(name, time)
-
-# 重命名
-rename(src, dst)
-
-# 将redis的某个name移动到指定的db下
-move(name, db)
-
-# 随机获取一个redis的name（不删除）
-randomkey()
-
-# 获取name对应值的类型
-type(name)
+# 在name对应的有序集合中添加元素
+red.zadd("name", "value1", 1)
+red.zadd("name", "value2", 2, "value3", 3)
+# 获取有序集合内元素的数量
+red.zcard("name")
+# 获取有序集合中分数在[min,max]之间的个数
+red.zcount("name", 1, 5)
+# 按照索引范围获取name对应的有序集合的元素
+red.zrange("name", 0, 1)  # 从小到大
+red.zrevrange("name", 0, 1)  # 从大到小
+# 获取value值在name对应的有序集合中的排行位置(从0开始)
+red.zrank("name", "a2")  # 从小到大
+red.zrevrank("name", "a2")  # 从大到小
+# 获取name对应有序集合中 value对应的分数
+red.zscore("name", "value")
+# 删除name对应的有序集合中值是values的成员
+red.zrem("name", "value1", "value2")
+# 根据排行范围删除[min,max]
+red.zremrangebyrank("name", 1, 5)
+# 根据分数范围删除[min,max]
+red.zremrangebyscore("name", 1, 5)
 
 ```
