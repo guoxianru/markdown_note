@@ -11,7 +11,7 @@
 ```shell
 # 准备编译环境
 yum groupinstall -y 'Development Tools'
-yum install -y zlib-devel bzip2-devel  openssl-devel ncurses-devel
+yum install -y zlib-devel bzip2-devel openssl-devel ncurses-devel
 
 # 下载Python3.6.6压缩包
 wget --no-check-certificate https://www.python.org/ftp/python/3.6.6/Python-3.6.6.tgz
