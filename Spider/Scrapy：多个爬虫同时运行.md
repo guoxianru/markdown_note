@@ -4,7 +4,7 @@
 
 > scrapy项目可能需要写多个爬虫，本文介绍如何让它们同时运行。
 
-### 一、
+### 一、创建运行文件
 
 在spiders目录的同级目录下创建一个commands目录，并在该目录中创建一个crawlall.py，将scrapy源代码里的commands文件夹里的crawl.py源码复制过来，只修改run()方法即可。（文件夹下面必须要有__init__文件）
 
@@ -86,7 +86,7 @@ class Command(ScrapyCommand):
 
 ```
 
-### 二、
+### 二、配置settings
 
 settings.py配置文件还需要加一条。
 
@@ -96,7 +96,7 @@ COMMANDS_MODULE = "项目名称.目录名称"
 
 ```
 
-### 三、
+### 三、启动爬虫
 
 最后启动crawlall即可！
 

@@ -2,7 +2,7 @@
 
 ## 导读
 
-> Centos7默认使用的是firewall作为防火墙。
+> 简单记录如何在centos7部署PHP项目。
 
 ### 一、CentOS7用Yum方式安装php-fpm
 

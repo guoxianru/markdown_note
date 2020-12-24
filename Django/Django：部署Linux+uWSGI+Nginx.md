@@ -24,7 +24,7 @@ vim /etc/hostname
 vim /etc/hosts
 
 127.0.0.1       localhost
-127.0.0.1       aly
+127.0.0.1       newname
 ```
 
 - 重启服务器  
@@ -106,7 +106,6 @@ daemonize = /srv/addcoder/uwsgi.log
 
 ```shell
 uwsgi --ini djangouwsgi.ini
-
 # 出现getting INI configuration from uwsgi.ini（成功）
 ```
 
@@ -227,7 +226,7 @@ systemctl restart nginx
 
 项目有更新的时候，需要先关闭uwsgi然后重启即可。
 
-- 示例
+- 操作示例
 
 ```shell
 # 关闭uwsgi
