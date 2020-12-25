@@ -148,6 +148,8 @@ openssl dhparam 2048 -out dhparam.pem
 
 #### 8.其他证书
 
+[腾讯云免费ssl证书](https://cloud.tencent.com/product/ssl)
+
 [阿里云免费ssl证书](https://www.aliyun.com/product/cas?spm=5176.10695662.1171680.2.65712652pKnY59)
 
 将下载的证书复制到Nginx安装目录下的cert目录(需要新建)，然后参照上述步骤。
