@@ -1,10 +1,10 @@
-# No.36 MySQL：使用命令导出、导入数据
+# No.36 MySQL：数据导出与导入
 
 ## 导读
 
 > MySQL必会命令。
 
-### 1、导出数据库文件
+- 导出
 
 ```shell
 # 导出整个数据库
@@ -26,9 +26,18 @@ mysqldump -u用户名 -p密码 -d 数据库名 表名> 导出的路径和文件�
 mysql -u 用户名 -p密码 数据库名 -e "select * from 表名" > 导出的路径和文件名
 ```
 　　
-### 2、数据导入
+- 导入
 
-```sql
+第1种
+
+```shell
+# 将备份的数据导入指定数据库
+mysql -uroot -p DBname < xxx.sql
+```
+
+第2种
+
+```shell
 # 进入mysql数据库控制台
 mysql -u用户名 -p密码
 
@@ -36,5 +45,5 @@ mysql -u用户名 -p密码
 mysql> use 数据库
 
 # 使用source命令，后面参数SQL本文件
-mysql> source 导出的路径和文件名
+mysql> source xxx.sql
 ```
