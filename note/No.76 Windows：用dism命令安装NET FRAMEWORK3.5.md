@@ -1,4 +1,4 @@
-# No.119 Windows：用dism命令安装NET FRAMEWORK3.5
+# No.76 Windows：用dism命令安装NET FRAMEWORK3.5
 
 ## 导读
 

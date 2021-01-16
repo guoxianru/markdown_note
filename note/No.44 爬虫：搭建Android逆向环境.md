@@ -2,7 +2,7 @@
 
 ## 导读
 
-> Android手机刷机、root、逆向环境搭建。
+> Android手机刷机、root、逆向环境搭建，以Google Pixel手机为例。
 
 ### 1、基本名词
 
@@ -11,8 +11,6 @@ Bootloader锁、Recovery、Fastboot、高通9008模式、OTA、System分区、A/
 以上知识点请自行了解。
 
 ### 2、准备工作
-
-以Google Pixel手机为例，下载按需即可。
 
 1. [下载Google USB驱动程序](https://developer.android.com/studio/run/win-usb)
 
@@ -24,11 +22,13 @@ Bootloader锁、Recovery、Fastboot、高通9008模式、OTA、System分区、A/
 
 5. [下载Magisk](https://github.com/topjohnwu/Magisk/releases)
 
-6. [下载EdXposedManager](https://github.com/ElderDrivers/EdXposedManager/releases)
+6. [下载Riru==21.3](https://github.com/RikkaApps/Riru/releases?after=v22.0-alpha03)
 
-7. [下载Frida](https://github.com/frida/frida/releases)
+7. [下载EdXposedManager](https://github.com/ElderDrivers/EdXposedManager/releases)
 
-8. 备份手机资料，退出谷歌账号，关闭指纹识别以及锁屏密码。
+8. [下载Frida](https://github.com/frida/frida/releases)
+
+9. 备份手机资料，退出谷歌账号，关闭指纹识别以及锁屏密码。
 
 ### 3、环境搭建
 
@@ -71,10 +71,13 @@ fastboot reboot
 # 重启进入bootloader
 adb reboot bootloader
 
-# 进入临时TWRP
+# 查看连接情况
+fastboot devices
+
+# 临时刷入TWRP包
 fastboot boot twrp-3.3.0-0-sailfish.img
 
-# 刷入TWRP包
+# 永久刷入TWRP包
 fastboot flash recovery twrp-3.3.0-0-sailfish.img
 # 刷完之后不会自动重启，看命令行提示Finished了就行。
 
@@ -96,7 +99,7 @@ adb push Magisk-v20.4.zip /sdcard
 
 - 安装EdXposed
 
-1. 安装Magisk模块：Riru-Core（作者：Rikka）
+1. 安装Magisk模块：Riru（作者：Rikka）
 
 2. 安装Magisk模块：EdXposed（作者：SandHook）
 

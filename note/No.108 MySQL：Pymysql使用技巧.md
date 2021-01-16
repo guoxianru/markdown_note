@@ -51,7 +51,11 @@ CREATE TABLE `test` (
 可以使用 pymysql.escape_string() 转换
 
 ```python
+import pymysql
+
+mydb = pymysql.connect(host="", user="", password="", database="", charset="",)
 if type(str_content) is str:
-    str_content = pymysql.escape_string(str_content)
+    str_content = mydb.escape_string(str_content)
+
 
 ```
