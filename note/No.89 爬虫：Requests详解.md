@@ -42,10 +42,15 @@
 import requests
 
 requests.get(url, params=None, **kwargs)
+
 requests.post(url, data=None, json=None, **kwargs)
+
 requests.head(url, **kwargs)
+
 requests.delete(url, **kwargs)
+
 requests.put(url, data=None, **kwargs)
+
 requests.patch(url, data=None, **kwargs)
 
 ```
@@ -59,28 +64,40 @@ from requests.auth import HTTPProxyAuth
 headers = {
     "user-agent": "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36"
 }
+
 # 字典或CookieJar，Request中的cookie
 cookies = {"_ga": "GA1.2.311358392.1610634651"}
+
 # 字典或字节序列，作为参数增加到url中
 params = {"k1": "v1", "k2": "v2"}
+
 # 字典、字节序列或文件对象，作为Request的对象
 data = {"username": "admin", "pwd": "admin"}
+
 # JSON格式的数据，作为Request的内容
 json = {"username": "admin", "pwd": "admin"}
+
 # 元组，支持HTTP认证功能
 auth = HTTPProxyAuth("username", "passwd")
+
 # 字典类型，传输文件
 files = file = {"file": open("a.txt", "rb", encoding="utf-8")}
+
 # 设定超时时间，秒为单位
 timeout = 10
+
 # 字典类型，设置访问代理服务器，可以增加登录认证
 proxies = {"http": "http://61.24.25.21:5011/", "https": "http://61.24.25.21:5011/"}
+
 # 默认为Ture，重定向开关
 allow_redirects = True
+
 # 默认为True，获取内容立即下载开关
 stream = True
+
 # 默认为True，认证SSL证书开关
 verigy = True
+
 # 本地SSL证书路径
 cert = ("xxx/xxx/xxx/xxx/pem", "yyy/yyy/yyy.key")
 
