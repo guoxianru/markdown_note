@@ -74,16 +74,13 @@ adb reboot bootloader
 # 查看连接情况
 fastboot devices
 
-# 临时刷入TWRP包
+# 刷入TWRP包
 fastboot boot twrp-3.3.0-0-sailfish.img
-
-# 永久刷入TWRP包
+fastboot flash boot twrp-3.3.0-0-sailfish.img
 fastboot flash recovery twrp-3.3.0-0-sailfish.img
-# 刷完之后不会自动重启，看命令行提示Finished了就行。
 
-# 重启进入Recovery
+# 重启进入Recovery，出现安全警告时直接拖动滑块允许修改即可。
 fastboot reboot recovery
-# 重启进入TWRP后，出现安全警告时直接拖动滑块允许修改即可。
 ```
 
 - 安装Magisk
