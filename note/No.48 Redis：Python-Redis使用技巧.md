@@ -14,6 +14,12 @@ import redis
 red = redis.Redis(host="127.0.0.1", port=6379, password="password", db=1)
 # red = redis.StrictRedis(host="127.0.0.1", port=6379, password="password", db=1)
 
+# redis://:password@host:port/db(TCP)
+# rediss://:password@host:port/db(TCP+SSL)
+# unix://:password@/path/to/socket.sock?db=db(UNIX+socket)
+red = redis.Redis.from_url("redis://user:password@ip:port/db")
+red = redis.Redis.from_url("redis://:password@127.0.0.1:6379/0")
+
 ```
 
 - 连接池连接
@@ -52,9 +58,13 @@ red.expire("name", 3)
 # 重命名
 red.rename("name1", "name2")
 # 将name移动到指定的db
-red.move('name', db=1)
+red.move("name", db=1)
 # 随机获取一个name
 red.randomkey()
+# 批量提交请求pipeline
+with red.pipeline(transaction=False) as p:
+    p.sadd("name", 1)
+    p.execute()
 
 ```
 

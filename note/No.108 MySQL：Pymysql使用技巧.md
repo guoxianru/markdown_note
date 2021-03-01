@@ -48,7 +48,7 @@ CREATE TABLE `test` (
 
 ### 3、Python插入数据库时字符串中含有单引号或双引号报错
 
-可以使用 pymysql.escape_string() 转换
+可以使用 pymysql.escape_string()转换
 
 ```python
 import pymysql
@@ -57,5 +57,20 @@ mydb = pymysql.connect(host="", user="", password="", database="", charset="",)
 if type(str_content) is str:
     str_content = mydb.escape_string(str_content)
 
+```
+
+### 3、连接MySQL时raise err.InterfaceError("(0, '')")
+
+Python长时间连接MySQL而没有进行任何处理，所以就自动断开了
+
+```python
+import pymysql
+
+mydb = pymysql.connect(host="", user="", password="", database="", charset="")
+cursor = mydb.cursor()
+sql = ""
+# 执行SQL前ping下MySQL服务器
+mydb.ping(reconnect=True)
+cursor.execute(sql)
 
 ```
