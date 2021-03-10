@@ -74,7 +74,7 @@ supervisorctl status all
 
 将supervisord.conf 中的一段配置更改如下
 
-![Centos7：使用Supervisor守护进程配置](./../pic/No.62%20配置.png "Supervisor守护进程配置")
+![Centos7：使用Supervisor守护进程配置](../../pics/No.62%20Linux：配置.png "Supervisor守护进程配置")
 
 - 重载supervisor配置
 
@@ -102,13 +102,13 @@ sudo firewall-cmd --reload
 
 成功如下：
 
-![Centos7：使用Supervisor守护进程端口](./../pic/No.62%20端口.png "Supervisor守护进程端口")
+![Centos7：使用Supervisor守护进程端口](../../pics/No.62%20Linux：端口.png "Supervisor守护进程端口")
 
 - 访问图形界面
 
 端口开启成功后访问supervisor的界面程序进行进程管理
 
-![Centos7：使用Supervisor守护进程界面](./../pic/No.62%20界面.png "Supervisor守护进程界面")
+![Centos7：使用Supervisor守护进程界面](../../pics/No.62%20Linux：界面.png "Supervisor守护进程界面")
 
 ### 7、附加配置文件参数详解
 

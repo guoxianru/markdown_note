@@ -6,7 +6,7 @@
 
 在Linux系统中，我们经常用free命令来查看系统内存的使用状态。在一个RHEL6的系统上，free命令的显示内容大概是这样一个状态：
 
-![Linux：Linux-buffer-cache内存占用过高状态](./../pic/No.68%20占用过高状态.png "buffer-cache内存占用过高状态")
+![Linux：Linux-buffer-cache内存占用过高状态](../../pics/No.68%20Linux：占用过高状态.png "buffer-cache内存占用过高状态")
 
 这里的默认显示单位是kb。一般情况下，对此命令输出的理解可以分这几个层次：
 
@@ -79,4 +79,4 @@ echo 3 > /proc/sys/vm/drop_caches
 
 优化后截图如下：
 
-![Linux：Linux-buffer-cache内存占用过高优化](./../pic/No.68%20占用过高优化.png "buffer-cache内存占用过高优化")
+![Linux：Linux-buffer-cache内存占用过高优化](../../pics/No.68%20Linux：占用过高优化.png "buffer-cache内存占用过高优化")

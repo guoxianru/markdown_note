@@ -8,7 +8,7 @@
 
 - HTTP协议对资源的操作
 
-![HTTP协议对资源的操作](./../pic/No.89%20HTTP协议对资源的操作.png "HTTP协议对资源的操作")
+![HTTP协议对资源的操作](../../pics/No.89%20爬虫：HTTP协议对资源的操作.png "HTTP协议对资源的操作")
 
 - requests方法构造一个向服务器请求资源的Request对象，返回一个包含服务器资源的Response对象
 
@@ -34,7 +34,7 @@
 
 - requests库的异常
 
-![requests库的异常](./../pic/No.89%20requests库的异常.png "requests库的异常")
+![requests库的异常](../../pics/No.89%20爬虫：requests库的异常.png "requests库的异常")
 
 ### 2、方法
 

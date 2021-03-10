@@ -6,7 +6,7 @@
 
 1. 下载Windows Terminal图标，右键另存为。
 
-    ![WindowsTerminal图标](./../pic/No.106%20Terminal.ico "Windows Terminal图标")
+    ![WindowsTerminal图标](../../pics/No.106%20Windows：Terminal.ico "Windows Terminal图标")
 
 2. 保存至'C:\Users\Administrator\AppData\Local\Terminal\Terminal.ico'。
 
