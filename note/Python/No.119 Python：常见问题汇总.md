@@ -56,3 +56,25 @@ with open("test.txt", "r") as f:
     print test_2
 
 ```
+
+### 4、Mac上PyCharm运行多进程报错的解决方案
+
+运行时报错运行时报错
+
+```shell
+may have been in progress in another thread when fork() was called. We cannot safely call it or ignore it in the fork() child process. Crashing instead. Set a breakpoint on objc_initializeAfterForkError to debug.
+```
+
+解决方案
+
+添加环境变量:
+
+点击窗口上的Run->Edit Configurations...->Environment variables->点击输入栏后的文件夹图标
+
+添加内容：
+
+key: OBJC_DISABLE_INITIALIZE_FORK_SAFETY, value: YES
+
+完整示例：
+
+OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES

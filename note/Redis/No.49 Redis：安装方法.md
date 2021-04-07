@@ -63,8 +63,14 @@ socket文件：/var/run/redis/
 ```shell
 vim /etc/redis.conf
 
+# 启用守护进程
+daemonize yes
+
 # 开启远程连接
 # bind 127.0.0.1
+
+# 指定端口
+port 6379
 
 # 设置密码
 requirepass 1111
