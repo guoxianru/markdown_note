@@ -239,7 +239,7 @@ cd /srv
 rm -rf addcoder/
 
 # 重新拉取最新代码
-git clone git@gitee.com:guoxianru/addcoder.git
+git clone git@github.com:guoxianru/addcoder.git
 
 # 切换项目根目录
 cd addcoder/
