@@ -179,3 +179,97 @@ sudo service mysql stop
 # 卸载安装的软件包
 sudo apt-get remove --purge mysql-server*
 ```
+
+### 3、Windows10
+
+- 环境变量
+
+```shell
+# 安装目录
+C:\PortableFiles\mysql-5.7.33-winx64\bin
+```
+
+- 配置文件
+
+```shell
+[mysql]
+
+default-character-set=utf8
+
+[mysqld]
+
+port = 3306
+
+basedir=C:\PortableFiles\mysql-5.7.33-winx64
+
+datadir=C:\PortableFiles\mysql-5.7.33-winx64\data
+
+max_connections=1000
+
+character-set-server=utf8
+
+default-storage-engine=INNODB
+
+```
+
+- 安装MySQL
+
+```shell
+# 安装
+mysqld install
+# 初始化
+mysqld --initialize
+```
+
+- 设置root密码
+
+```shell
+# 安全模式启动
+mysqld --defaults-file="C:\PortableFiles\mysql-5.7.33-winx64\my.ini" --console --skip-grant-tables
+# 另起终端
+mysql -uroot -p
+# 直接敲Enter键，成功进入mysql
+
+```
+
+```sql
+use mysql;
+
+update user set authentication_string=password("1111") where user="root";
+
+quit
+-- 最后关闭安全模式启动的服务
+```
+
+- 设置root权限
+
+重启MySQL服务
+
+```shell
+# 重启服务
+net start mysql
+
+mysql -uroot -p1111
+```
+
+```sql
+-- 登录后，需要在正常模式下，再设一次root用户的密码
+set password=password('1111');
+
+use mysql;
+
+select host,user from user;
+
+update user set host='%' where user='root';
+
+quit
+```
+
+- 操作服务
+
+```shell
+# 启动服务
+net start mysql
+# 停止服务
+net stop mysql
+```

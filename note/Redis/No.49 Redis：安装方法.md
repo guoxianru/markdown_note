@@ -155,3 +155,28 @@ sudo service redis stop
 # 卸载安装的软件包
 sudo apt-get remove --purge redis-server*
 ```
+
+### 3、Windows10
+
+- 环境变量
+
+```shell
+# 安装目录
+C:\PortableFiles\Redis-x64-5.0.10
+```
+
+- 注册服务
+
+```shell
+# 安装目录
+redis-server --service-install redis.windows.conf --loglevel verbose
+```
+
+- 操作服务
+
+```shell
+# 启动服务
+net start redis
+# 停止服务
+net stop redis
+```

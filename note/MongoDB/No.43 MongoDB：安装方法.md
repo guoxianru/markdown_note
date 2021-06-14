@@ -187,3 +187,37 @@ sudo apt-get remove --purge mongodb-org*
 sudo rm -r /var/log/mongodb
 sudo rm -r /var/lib/mongodb
 ```
+
+### 3、Windows10
+
+- 环境变量
+
+```shell
+# 安装目录
+C:\PortableFiles\mongodb-win32-x86_64-windows-4.4.6\bin
+```
+
+- 添加目录
+
+```shell
+# 数据目录
+/data
+# 日志目录
+/log
+```
+
+- 注册服务
+
+```shell
+# 安装目录
+mongod.exe --dbpath "C:\PortableFiles\mongodb-win32-x86_64-windows-4.4.6\data" --logpath "C:\PortableFiles\mongodb-win32-x86_64-windows-4.4.6\log\mongodb.log" --install --serviceName "MongoDB" --logappend --directoryperdb
+```
+
+- 操作服务
+
+```shell
+# 启动服务
+net start mongodb
+# 停止服务
+net stop mongodb
+```
