@@ -1,4 +1,4 @@
-# No.44 爬虫：搭建Android逆向环境
+# No.44 爬虫：Android逆向环境搭建
 
 ## 导读
 
@@ -14,7 +14,7 @@ Bootloader锁、Recovery、Fastboot、高通9008模式、OTA、System分区、A/
 
 1. [下载Google USB驱动程序](https://developer.android.com/studio/run/win-usb)
 
-2. [下载Google Pixel官方镜像文件](https://developers.google.cn/android/images#sailfish)
+2. [下载Google 官方镜像文件](https://developers.google.cn/android/images#sailfish)
 
 3. [下载SDK Platform Tools](https://developer.android.com/studio/releases/platform-tools)
 
@@ -63,9 +63,9 @@ fastboot reboot
 
 解压镜像文件，找到flash-all.bat文件并运行。
 
-大概3-5分钟，刷机就成功了，开机跳过所有选项，开启开发者选项，打开USB调试模式继续。
+大概3-5分钟，刷机就成功了，完成开机设置，开启开发者选项，打开USB调试模式。
 
-- 更换Recovery
+- 更换Recovery，刷入TWRP包
 
 ```shell
 # 重启进入bootloader
@@ -74,12 +74,17 @@ adb reboot bootloader
 # 查看连接情况
 fastboot devices
 
-# 刷入TWRP包
+# 临时刷入
 fastboot boot twrp-3.3.0-0-sailfish.img
+
+# 临时刷入，A/B分区设备
 fastboot flash boot twrp-3.3.0-0-sailfish.img
+# A/B分区设备永久刷入需要在twrp中安装twrp-pixel-installer-sailfish-3.3.0-0.zip
+
+# 永久刷入，非A/B分区设备
 fastboot flash recovery twrp-3.3.0-0-sailfish.img
 
-# 重启进入Recovery，出现安全警告时直接拖动滑块允许修改即可。
+# 重启进入Recovery，出现安全警告时直接拖动滑块允许修改
 fastboot reboot recovery
 ```
 
