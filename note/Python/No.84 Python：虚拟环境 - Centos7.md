@@ -102,3 +102,33 @@ deactivate
 ```shell
 rmvirtualenv env_nam
 ```
+
+### 5、virtualenv的使用
+
+- 安装
+
+```shell
+pip3 install virtualenv
+# 测试安装
+virtualenv --version
+```
+
+- 创建虚拟环境
+
+```shell
+virtualenv python36_
+# 指定python版本的虚拟环境
+mkvirtualenv -p /usr/bin/python3 python36_
+```
+
+- 激活虚拟环境
+
+```shell
+source python36_/bin/activate
+```
+
+- 关闭虚拟环境
+
+```shell
+deactivate
+```
